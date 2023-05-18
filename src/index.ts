@@ -2,4 +2,4 @@ export {
     excludeParams,
     generateUrl,
     useRedirect
-} from "./redirect.js"
+} from "./redirect.js";
