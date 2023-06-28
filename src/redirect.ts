@@ -1,4 +1,4 @@
-import {Args, RedirectFunction} from "./types";
+import {Args} from "./types";
 
 export function excludeParams(href: string): string {
     return href.substring(0, href.indexOf("?"));
@@ -37,7 +37,7 @@ function Redirect(url?: string, args: Args = {}): void {
     }
 }
 
-export function useRedirect(): RedirectFunction {
+export function useRedirect(): (url?: string, args?: Args) => void {
     return Redirect;
 }
 
