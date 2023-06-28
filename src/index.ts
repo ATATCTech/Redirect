@@ -1,5 +1,6 @@
 export {
     excludeParams,
     generateUrl,
-    useRedirect
+    useRedirect,
+    makeRedirect
 } from "./redirect";

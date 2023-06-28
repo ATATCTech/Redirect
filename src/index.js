@@ -1,2 +1,2 @@
-export { excludeParams, generateUrl, useRedirect } from "./redirect";
+export { excludeParams, generateUrl, useRedirect, makeRedirect } from "./redirect";
 //# sourceMappingURL=index.js.map

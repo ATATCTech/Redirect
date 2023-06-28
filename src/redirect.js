@@ -1,7 +1,7 @@
-export const excludeParams = (href) => {
+export function excludeParams(href) {
     return href.substring(0, href.indexOf("?"));
-};
-export const generateUrl = (href, params) => {
+}
+export function generateUrl(href, params) {
     if (href.startsWith(":"))
         href = excludeParams(window.location.href) + href.substring(1);
     params = params == null ? {} : params;
@@ -16,14 +16,14 @@ export const generateUrl = (href, params) => {
     if (href.endsWith("?"))
         href = href.substring(0, href.length - 1);
     return href;
-};
-const RedirectFunction = (url, args = {}) => {
-    /**
-     * This function can only be called after rendered.
-     * @param url: redirect to this url
-     * @param config: params, blank, refresh
-     * @type {string, {}}
-     */
+}
+/**
+ * This function can only be called after rendered.
+ * @param url: redirect to this url
+ * @param args: params, blank, refresh
+ * @type {string, {}}
+ */
+function Redirect(url, args = {}) {
     if (url == null) {
         window.location.reload();
         return;
@@ -38,8 +38,13 @@ const RedirectFunction = (url, args = {}) => {
         else
             window.history.pushState("", "", url);
     }
-};
-export const useRedirect = () => {
-    return RedirectFunction;
-};
+}
+export function useRedirect() {
+    return Redirect;
+}
+export function makeRedirect(url, args) {
+    return () => {
+        Redirect(url, args);
+    };
+}
 //# sourceMappingURL=redirect.js.map

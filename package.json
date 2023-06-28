@@ -1,7 +1,7 @@
 {
   "name": "@atatctech/redirect",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "ATATC",
   "description": "A lightweight redirecting tool.",
   "keywords": [

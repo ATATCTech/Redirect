@@ -1,8 +1,10 @@
-export const excludeParams = (href: string): string => {
-    return href.substring(0, href.indexOf("?"));
-};
+import {Args, RedirectFunction} from "./types";
 
-export const generateUrl = (href: string, params?: {[key: string]: string}): string => {
+export function excludeParams(href: string): string {
+    return href.substring(0, href.indexOf("?"));
+}
+
+export function generateUrl(href: string, params?: {[key: string]: string}): string {
     if (href.startsWith(":")) href = excludeParams(window.location.href) + href.substring(1);
     params = params == null ? {} : params;
     href += "?";
@@ -13,15 +15,15 @@ export const generateUrl = (href: string, params?: {[key: string]: string}): str
     }
     if (href.endsWith("?")) href = href.substring(0, href.length - 1);
     return href;
-};
+}
 
-const RedirectFunction = (url?: string, args: {params?: {[key: string]: string}, blank?: boolean, refresh?: boolean} = {}): void => {
-    /**
-     * This function can only be called after rendered.
-     * @param url: redirect to this url
-     * @param config: params, blank, refresh
-     * @type {string, {}}
-     */
+/**
+ * This function can only be called after rendered.
+ * @param url: redirect to this url
+ * @param args: params, blank, refresh
+ * @type {string, {}}
+ */
+function Redirect(url?: string, args: Args = {}): void {
     if (url == null) {
         window.location.reload();
         return;
@@ -33,8 +35,14 @@ const RedirectFunction = (url?: string, args: {params?: {[key: string]: string},
         if (refresh) window.location.href = url;
         else window.history.pushState("", "", url);
     }
-};
+}
 
-export const useRedirect = (): (url?: string, args?: {params?: {[key: string]: string}, blank?: boolean, refresh?: boolean}) => void => {
-    return RedirectFunction;
-};
+export function useRedirect(): RedirectFunction {
+    return Redirect;
+}
+
+export function makeRedirect(url?: string, args?: Args): () => void {
+    return () => {
+        Redirect(url, args);
+    };
+}
